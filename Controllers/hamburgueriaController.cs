@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using listaburguersonline.db;
 using System.Linq;
 using System.Collections.Generic;
+using listaburguersonline.Models;
 
 namespace xxx 
 {
@@ -16,12 +17,18 @@ namespace xxx
         }
 
         [HttpGet]
-        public List <BurguerIngrediente> Get()
+        public List <listaburguersonlineModels> Get()
         {
-            var ingrediente = _db.BurguerIngrediente
-                .ToList();
+           var hamburguerfinish = _db.Burguer;
             
-            return ingrediente;
+            var retorno = new List<listaburguersonlineModels>();
+            foreach(var hb in hamburguerfinish)
+            {
+                retorno.Add(new listaburguersonlineModels{
+                    Nome = hb.Nome
+                });
+            }    
+            return retorno;
         }
     }
 }
